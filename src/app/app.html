@@ -1,13 +1,30 @@
 <div style="text-align: center; margin-top: 50px; font-family: sans-serif;">
-  <h1>Angular + Flask Full Stack</h1>
+  <h1>UNSW-NB15 Intrusion Detection</h1>
+  <p>Enter network packet features to check if the traffic is malicious.</p>
   
-  <div style="padding: 20px; border: 2px solid #ccc; display: inline-block; border-radius: 10px; margin-top: 20px; background-color: #f9f9f9;">
-    <h2>Backend Response:</h2>
-    <p *ngIf="flaskData" style="color: green; font-weight: bold; font-size: 20px;">
-      {{ flaskData.message }}
-    </p>
-    <p *ngIf="!flaskData" style="color: red;">
-      Loading... (Make sure Flask is running!)
-    </p>
+  <div style="padding: 20px; border: 2px solid #ccc; display: inline-block; border-radius: 10px; background-color: #f9f9f9; width: 350px; text-align: left;">
+    
+    <label><b>Source Time To Live (sttl):</b></label><br>
+    <input type="number" [(ngModel)]="networkData.sttl" style="margin-bottom: 10px; width: 100%; padding: 5px;"><br>
+
+    <label><b>Destination Time To Live (dttl):</b></label><br>
+    <input type="number" [(ngModel)]="networkData.dttl" style="margin-bottom: 10px; width: 100%; padding: 5px;"><br>
+
+    <label><b>Source Bytes (sbytes):</b></label><br>
+    <input type="number" [(ngModel)]="networkData.sbytes" style="margin-bottom: 10px; width: 100%; padding: 5px;"><br>
+
+    <label><b>Destination Bytes (dbytes):</b></label><br>
+    <input type="number" [(ngModel)]="networkData.dbytes" style="margin-bottom: 20px; width: 100%; padding: 5px;"><br>
+
+    <button (click)="predict()" style="background-color: #1565c0; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px;">
+      Analyze Network Traffic
+    </button>
+
+    <div *ngIf="result" style="margin-top: 20px; padding: 15px; border-radius: 5px; text-align: center;" 
+         [style.background-color]="result.is_attack ? '#ffcdd2' : '#c8e6c9'">
+      <h2 style="margin: 0;">{{ result.prediction }}</h2>
+      <p style="margin: 5px 0 0 0;">Confidence: {{ result.confidence }}%</p>
+    </div>
+
   </div>
 </div>
